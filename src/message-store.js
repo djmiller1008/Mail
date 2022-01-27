@@ -1,4 +1,16 @@
+class Message {
+  constructor(from, to = "", subject = "", body = "") {
+    this.from = from;
+    this.to = to;
+    this.subject = subject;
+    this.body = body;
+  }
+}
+
+let messageDraft = new Message();
+
 let messages = {
+
     sent: [
       {
         to: "friend@mail.com",
@@ -23,11 +35,22 @@ let messages = {
 }
 
 const MessageStore = {
+    updateDraftField(field, value) {
+      messageDraft[field] = value;
+    },
+
+    sendDraft() {
+      messages.sent.push(messageDraft);
+      messageDraft = new Message();
+    },
     getInboxMessages() {
         return messages.inbox.slice();
     },
     getSentMessages() {
         return messages.sent.slice();
+    },
+    getMessageDraft() {
+      return messageDraft;
     }
 };
 
